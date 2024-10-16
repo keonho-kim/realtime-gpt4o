@@ -1,0 +1,69 @@
+#toggleAudio {
+    font-size: clamp(24px, 5vw, 36px);
+    width: clamp(80px, 20vw, 120px);
+    height: clamp(56px, 15vw, 84px);
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: var(--on-bg-color);
+    border: none;
+    border-radius: 42px;
+    transition: all 0.5s ease;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+#toggleAudio:hover {
+    box-shadow: 0 6px 10px rgba(0,0,0,0.3);
+    transform: translateY(-3px);
+    animation: changeToOrange 1s forwards;
+}
+
+#toggleAudio.active {
+    background-color: #FF9800;
+}
+
+@keyframes changeToOrange {
+    0% {
+        background-color: #4CAF50;
+    }
+    100% {
+        background-color: #FF9800;
+    }
+}
+
+#toggleAudio.active:hover {
+    background-color: #F57C00;
+    transition: background-color 1s ease;
+}
+
+#toggleAudio .material-icons {
+    margin: 0;
+    transition: transform 0.5s ease;
+}
+
+#toggleAudio:hover .material-icons {
+    transform: scale(1.1);
+}
+
+#toggleAudio::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+}
+
+#toggleAudio:active::before {
+    width: 150%;
+    height: 150%;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>음성 대화 인터페이스</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/background.css">
+    <link rel="stylesheet" href="/static/css/chat.css">
+    <link rel="stylesheet" href="/static/css/audio-button.css">
+    <link rel="stylesheet" href="/static/css/settings-modal.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div id="settingsToggle">
+        <i class="material-icons">settings</i>
+    </div>
+    <h2 id="chatTitle">대화 기록</h2>
+    <div id="chat"></div>
+    <button id="toggleAudio">
+        <i class="material-icons">mic</i>
+    </button>
+    <div id="settingsModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>설정</h3>
+            <div class="instructions-container">
+                <div class="instructions-header">
+                    <span class="instructions-label">지시사항</span>
+                    <button id="expandInstructions" class="expand-button">
+                        <i class="material-icons">open_in_full</i>
+                    </button>
+                </div>
+                <textarea id="instructionsInput" placeholder="AI에게 지시할 내용을 입력하세요..."></textarea>
+            </div>
+            <div class="collapsible">
+                <span>추가 설정</span>
+                <i class="material-icons collapsible-arrow">arrow_right</i>
+            </div>
+            <div class="collapsible-content" style="display: none;">
+                <!-- 추가 설정 내용 -->
+            </div>
+            <div class="button-group">
+                <button id="saveInstructions">변경사항 저장</button>
+                <button id="closeModal">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js" type="module"></script>
+</body>
+</html>

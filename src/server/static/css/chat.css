@@ -1,0 +1,72 @@
+#chat {
+    width: 80%;
+    max-width: 600px;
+    height: 30vh;
+    overflow-y: auto;
+    background-color: var(--surface-color);
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 12px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.message p {
+    margin: 0 0 10px 0;
+}
+
+.message ul, .message ol {
+    margin: 0 0 10px 0;
+    padding-left: 20px;
+}
+
+.message pre {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.message code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.user {
+    background-color: var(--secondary-color);
+    color: var(--bg-color);
+    align-self: flex-end;
+}
+
+.ai {
+    background-color: var(--primary-color);
+    color: var(--on-surface-color);
+    align-self: flex-start;
+}
+
+@media (max-width: 768px) {
+    #chat {
+        width: 90%;
+        height: 40vh;
+    }
+    .message { max-width: 85%; }
+}
+
+@media (max-width: 480px) {
+    #chat {
+        width: 95%;
+        height: 50vh;
+    }
+    .message { max-width: 90%; }
+}
