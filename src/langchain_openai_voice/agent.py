@@ -1,3 +1,5 @@
+# Core class implementing the OpenAI voice-based conversational agent
+
 import asyncio
 import json
 from typing import AsyncIterator, Any, Callable, Coroutine, Dict, List
@@ -16,6 +18,20 @@ from .websocket import connect
 
 @beta()
 class OpenAIVoiceReactAgent(BaseModel):
+    """
+    A class representing an OpenAI voice-based conversational agent.
+
+    This agent can connect to the OpenAI API, process voice input, execute tools,
+    and generate voice responses.
+
+    Attributes:
+        model (str): The name of the OpenAI model to use.
+        api_key (SecretStr): The API key for authenticating with OpenAI.
+        instructions (str | None): Optional instructions for the agent.
+        tools (List[BaseTool] | None): Optional list of tools the agent can use.
+        url (str): The URL for the OpenAI API.
+    """
+
     model: str = Field(default=DEFAULT_MODEL)
     api_key: SecretStr = Field(
         alias="openai_api_key",
@@ -30,6 +46,17 @@ class OpenAIVoiceReactAgent(BaseModel):
         input_stream: AsyncIterator[str],
         send_output_chunk: Callable[[str], Coroutine[Any, Any, None]],
     ) -> None:
+        """
+        Establishes a connection with the OpenAI API and processes the conversation.
+
+        Args:
+            input_stream (AsyncIterator[str]): An async iterator providing input data.
+            send_output_chunk (Callable[[str], Coroutine[Any, Any, None]]): A coroutine
+                function for sending output chunks.
+
+        Returns:
+            None
+        """
         tools_by_name = {tool.name: tool for tool in self.tools or []}
         tool_executor = VoiceToolExecutor(tools_by_name=tools_by_name)
 
@@ -94,6 +121,21 @@ class OpenAIVoiceReactAgent(BaseModel):
         send_output_chunk: Callable[[str], Coroutine[Any, Any, None]],
         tool_executor: VoiceToolExecutor,
     ) -> None:
+        """
+        Handles the output from the OpenAI model and processes various event types.
+
+        Args:
+            data (Dict[str, Any]): The data received from the model.
+            model_send (Callable[[Dict[str, Any] | str], Coroutine[Any, Any, None]]):
+                A coroutine function for sending data to the model.
+            send_output_chunk (Callable[[str], Coroutine[Any, Any, None]]):
+                A coroutine function for sending output chunks.
+            tool_executor (VoiceToolExecutor): An instance of VoiceToolExecutor for
+                executing tools.
+
+        Returns:
+            None
+        """
         t = data["type"]
         if t == "response.audio.delta":
             await send_output_chunk(json.dumps(data))

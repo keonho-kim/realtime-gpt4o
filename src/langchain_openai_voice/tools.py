@@ -1,3 +1,5 @@
+# Define the tools that can be used by the agent
+
 from langchain_core.tools import tool
 from langchain_community.tools import TavilySearchResults
 
