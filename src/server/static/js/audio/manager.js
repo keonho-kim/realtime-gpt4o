@@ -8,7 +8,6 @@ export class AudioManager {
         this.bufferSize = bufferSize;
         this.buffer = new Uint8Array();
         this.onAudioData = null;
-        this.isPlaying = false;
     }
 
     async start() {
@@ -26,19 +25,9 @@ export class AudioManager {
         const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
         const pcmData = new Int16Array(bytes.buffer);
         this.player.play(pcmData);
-        this.isPlaying = true;
-    }
-
-    stopPlayback() {
-        this.player.stop();
-        this.isPlaying = false;
     }
 
     handleAudioData(data) {
-        if (this.isPlaying) {
-            this.stopPlayback();
-        }
-
         const uint8Array = new Uint8Array(data);
         this.appendToBuffer(uint8Array);
 
