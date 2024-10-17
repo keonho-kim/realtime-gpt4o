@@ -195,6 +195,10 @@ class App {
                     this.audioManager.playAudio(data.delta);
                 } else if (data.type === 'transcript') {
                     this.chatManager.addMessage(data.sender, data.transcript);
+                    if (data.sender === 'Human') {
+                        // 사용자 입력이 시작되면 현재 재생 중인 오디오 중지
+                        this.audioManager.stopPlayback();
+                    }
                 } else if (data.type === 'error') {
                     console.error('오류 발생:', data.message);
                 } else if (data.type === 'unhandled_event') {
@@ -214,13 +218,17 @@ class App {
 
             this.audioManager.onAudioData = (audioData) => {
                 if (this.isAudioOn) {
+                    // 새로운 오디오 데이터가 들어오면 현재 재생 중인 오디오 중지
+                    if (this.audioManager.isPlaying) {
+                        this.audioManager.stopPlayback();
+                    }
                     this.webSocketManager.sendAudio(audioData);
                 }
             };
 
         } catch (error) {
             console.error('오디오 시작 오류', error);
-            alert('오디오 시작 중 오류가 발생했습니다. 설정을 확인하고 ��시 시도해주세요.');
+            alert('오디오 시작 중 오류가 발생했습니다. 설정을 확인하고 다시 시도해주세요.');
         }
     }
 

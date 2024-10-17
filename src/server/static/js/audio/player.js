@@ -2,6 +2,7 @@ export class Player {
     constructor(sampleRate) {
         this.playbackNode = null;
         this.sampleRate = sampleRate;
+        this.isPlaying = false;
     }
 
     async init() {
@@ -14,13 +15,16 @@ export class Player {
 
     play(buffer) {
         if (this.playbackNode) {
+            this.stop();  // 기존 재생 중인 오디오 중지
             this.playbackNode.port.postMessage(buffer);
+            this.isPlaying = true;
         }
     }
 
     stop() {
         if (this.playbackNode) {
             this.playbackNode.port.postMessage(null);
+            this.isPlaying = false;
         }
     }
 }
