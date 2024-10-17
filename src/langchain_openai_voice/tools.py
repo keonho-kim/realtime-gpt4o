@@ -4,10 +4,11 @@ from langchain_core.tools import tool
 from langchain_community.tools import TavilySearchResults
 
 
-@tool
-def add(a: int, b: int):
-    """Add two numbers. Please let the user know that you're adding the numbers BEFORE you call the tool"""
-    return a + b
+# NOTE. Tool example
+# @tool
+# def add(a: int, b: int):
+#     """Add two numbers. Please let the user know that you're adding the numbers BEFORE you call the tool"""
+#     return a + b
 
 
 tavily_tool = TavilySearchResults(
@@ -19,4 +20,4 @@ tavily_tool = TavilySearchResults(
     ),
 )
 
-TOOLS = [add, tavily_tool]
+TOOLS = [tavily_tool]
